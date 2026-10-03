@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CaseCraft – Phone cases made for your exact model</title>
+<meta name="description" content="Choose your exact phone model, then pick a design. Hard, soft and glass cases printed to order.">
+<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+<style>
+:root{--ink:#111;--mute:#667085;--line:#e6e8ec;--soft:#f4f5f7;--ac:#ff3d57}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:#fff}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+h1,h2{margin:0;letter-spacing:-.02em;line-height:1.1}h2{font-size:clamp(1.4rem,3vw,2rem)}
+.bar{background:var(--ink);color:#fff;text-align:center;font-size:13px;padding:7px 10px}
+header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:18px;padding:12px 4vw}
+.logo{font-weight:800;font-size:22px}nav{display:flex;gap:16px;flex:1;overflow:auto;white-space:nowrap}nav a{color:var(--mute)}nav a:hover{color:var(--ink)}
+.cb{background:var(--ink);color:#fff;border:0;border-radius:99px;padding:8px 16px}
+.wrap{padding:28px 4vw 50px;max-width:1200px;margin:0 auto}.sec{margin-top:46px}.sec>.hd{display:flex;justify-content:space-between;align-items:end;margin-bottom:16px}.sec p{color:var(--mute);margin:4px 0 0}
+.hero{background:var(--soft);display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:center;padding:5vh 4vw}
+.hero h1{font-size:clamp(2.3rem,6vw,4.2rem);margin:10px 0 12px}.hero p{color:var(--mute);max-width:44ch}.pill{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:99px;padding:3px 12px;font-size:13px}
+.btn{display:inline-block;background:var(--ac);color:#fff;border:0;border-radius:10px;padding:13px 24px;font-weight:700;margin-top:14px}.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--ink);margin-left:8px}.btn:disabled{opacity:.6}
+.tiles{display:flex;gap:14px;overflow:auto;padding-bottom:6px}.tile{flex:0 0 150px;position:relative;background:var(--soft);border-radius:14px;padding:10px 10px 0;text-align:center}.tile svg{width:100%;display:block}.tile b{display:block;padding:8px 0}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}.card{display:block}.card .art{background:var(--soft);border-radius:14px;padding:16px 26px;transition:transform .2s}.card:hover .art{transform:translateY(-3px)}.card svg{width:100%;display:block}.card h3{margin:10px 0 0;font-size:15px}.m{color:var(--mute);font-size:13px}.pr{font-weight:700}
+.styles{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.st{background:var(--soft);border-radius:14px;padding:18px;text-align:center}.st svg{width:90px}.st b{display:block;font-size:18px}
+.why{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.why div{border:1px solid var(--line);border-radius:14px;padding:18px}.why b{display:block;margin-bottom:4px}
+details{border-bottom:1px solid var(--line);padding:14px 0}summary{cursor:pointer;font-weight:600}details p{color:var(--mute);margin:8px 0 0}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.tab{border:1px solid var(--line);border-radius:99px;padding:6px 16px}.tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+input,select,textarea{font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px;width:100%}
+.mgrid{display:grid;gap:12px;margin-top:16px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}.mc{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px}.mc svg{width:34px;flex:none}.mc small{display:block;color:var(--mute)}.mc:hover{border-color:var(--ink)}
+.pp{display:grid;grid-template-columns:1fr 1fr;gap:34px;padding:28px 4vw;max-width:1100px;margin:0 auto}.big{background:var(--soft);border-radius:18px;padding:30px 20%}.big svg{width:100%;display:block}.bp{font-size:28px;font-weight:800;margin:10px 0}
+.types{display:grid;gap:10px;margin:14px 0}.ty{text-align:left;background:#fff;border:2px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:1fr auto}.ty.on{border-color:var(--ink)}.ty small{grid-column:1/-1;color:var(--mute)}
+.co{display:grid;grid-template-columns:1.3fr 1fr;gap:30px}form{display:grid;grid-template-columns:1fr 1fr;gap:12px}form .f{grid-column:1/-1}label{display:grid;gap:4px;color:var(--mute);font-size:13px}
+.sum{background:var(--soft);border-radius:14px;padding:18px;align-self:start}.sum div{display:flex;justify-content:space-between;gap:10px;padding:4px 0}#err{color:#b42318;min-height:1.3em;margin:0}
+footer{background:var(--soft);padding:30px 4vw;color:var(--mute);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+#dr{position:fixed;top:0;right:0;height:100%;width:min(400px,100%);background:#fff;border-left:1px solid var(--line);transform:translateX(100%);transition:transform .25s;z-index:10;display:flex;flex-direction:column;padding:18px}#dr.open{transform:none}#it{flex:1;overflow:auto}
+.ci{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.ci button{border:1px solid var(--line);background:#fff;border-radius:6px;width:28px;height:28px}
+@media(max-width:760px){.hero,.pp,.co{grid-template-columns:1fr}.big{padding:24px 28%}form{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.car{max-width:1200px;margin:24px auto 0;padding:0 4vw}
+.vw{position:relative}
+.trk{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;border-radius:16px;scrollbar-width:none}
+.trk::-webkit-scrollbar{display:none}
+.sl{flex:0 0 100%;scroll-snap-align:center;display:block}
+.sl img{width:100%;aspect-ratio:16/6;object-fit:cover;display:block;background:var(--soft)}
+.cp,.cn{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.92);box-shadow:0 2px 8px rgba(0,0,0,.25);font-size:24px;line-height:1}
+.cp{left:12px}.cn{right:12px}
+.ct{position:absolute;right:12px;bottom:12px;background:rgba(0,0,0,.6);color:#fff;font-size:12px;padding:2px 10px;border-radius:99px}
+.dots{display:flex;justify-content:center;gap:8px;margin-top:12px}
+.dots button{width:9px;height:9px;border-radius:9px;border:0;background:var(--line);padding:0;transition:width .2s}
+.dots button.on{background:var(--ink);width:22px}
+@media(max-width:760px){.sl img{aspect-ratio:4/3}.cp,.cn{display:none}}
+.hero>div{min-width:0}
+.hero .car{margin:0;padding:0;max-width:none}
+.hero .sl img{aspect-ratio:1/1}
+@media(max-width:760px){.hero .sl img{aspect-ratio:4/3}}
+.mml svg{width:26px;flex:none}
+.bsec{background:linear-gradient(160deg,#d9cff7,#c3b3ee);border-radius:22px;padding:16px}
+.bl{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.bb{background:#fff;border:2px solid transparent;border-radius:14px;height:76px;padding:12px 16px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.bb img{width:100%;height:100%;object-fit:contain;display:block}
+.bb .tx{font-weight:800;font-size:16px}
+.bb:hover,.bb[aria-expanded=true]{border-color:var(--ink)}
+.bpn{display:none;margin-top:14px;background:#fff;border-radius:16px;padding:18px}
+.bpn.open{display:block}
+.bpn h3{margin:0 0 12px}
+.bpg{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+.bpg a{display:flex;align-items:center;gap:10px;background:var(--soft);border-radius:10px;padding:8px 10px}
+.bpg a:hover{outline:2px solid var(--ink)}
+.bpg svg{width:26px;flex:none}
+@media(max-width:900px){.bl{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.bl{grid-template-columns:repeat(2,1fr)}}
+.mk{position:relative;display:block}
+.mk img{display:block;width:100%;height:auto;position:relative;mix-blend-mode:multiply}
+.mk .ar{position:absolute;inset:0;background:var(--a) center/cover no-repeat;-webkit-mask:var(--c) center/100% 100% no-repeat;mask:var(--c) center/100% 100% no-repeat}
+.mk.glass::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(255,255,255,0) 40%,rgba(255,255,255,.15));-webkit-mask:var(--c) center/100% 100% no-repeat;mask:var(--c) center/100% 100% no-repeat;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="bar">Free shipping over ₹499 · Printed to order · Secure prepaid checkout</div>
+<header><a class="logo" href="#/">CaseCraft</a><nav id="nav"></nav><button class="cb" id="oc">Cart (<span id="cc">0</span>)</button></header>
+<main id="app"></main>
+<footer><span>© 2026 CaseCraft</span><span>Prepaid orders only · Payments by Cashfree</span></footer>
+<aside id="dr" aria-label="Cart"><button id="xc" style="align-self:flex-end;border:0;background:none;font-size:26px" aria-label="Close cart">×</button><h2>Your cart</h2><div id="it"></div><p><b>Subtotal: <span id="sub">₹0</span></b></p><button class="btn" id="go" style="width:100%;margin:0">Checkout</button></aside>
+<script src="models.js"></script>
+<script src="designs.js"></script>
+<script>
+// ---- EDIT THESE (prices must match api/create-order.js) ----
+var MODE="sandbox",FREE=499,SHIP=60;
+var T={hard:{n:"Hard case",p:149,d:"Slim, printed edge to edge"},soft:{n:"Soft case",p:199,d:"Flexible and grippy"},glass:{n:"Glass case",p:299,d:"Glossy glass back, soft frame"}};
+// [brand, model, camera layout]. Add as many phones as you like.
+// var M=[["Apple","iPhone 17","diag2"],["Apple","iPhone 17 Pro","tri"],["Apple","iPhone 16","diag2"],["Apple","iPhone 15","diag2"],["Apple","iPhone 14","diag2"],["Apple","iPhone 13","diag2"],
+// ["Samsung","Galaxy S24","vert3"],["Samsung","Galaxy A36 5G","vert3"],["Samsung","Galaxy A15 5G","vert3"],["Samsung","Galaxy M35 5G","vert3"],
+// ["Vivo","V50 5G","circ2"],["Vivo","Y200e 5G","circ2"],["Vivo","T3 Pro 5G","circ2"],
+// ["OnePlus","13R","circ3"],["OnePlus","Nord 4","circ3"],["OnePlus","Nord CE4","pill2"],
+// ["Realme","12x 5G","circ2"],["Realme","11 Pro+ 5G","circ3"],["Realme","P4x 5G","pill2"],
+// ["Xiaomi","Redmi Note 14 5G","pill2"],["Xiaomi","Redmi Note 13 5G","pill2"],["Xiaomi","Redmi 13 5G","pill2"],
+// ["iQOO","Z10 5G","pill2"],["iQOO","Neo 10","circ3"],["Nothing","Phone (3a)","vert3"],["Nothing","Phone (2a)","pill2"],
+// ["Oppo","F27 Pro+ 5G","circ2"],["Oppo","Reno 12 5G","circ3"],
+// ["Poco","X6 5G","pill2"],["Poco","M6 5G","pill2"],
+// ["Motorola","Edge 50 Fusion","pill2"],["Motorola","G84 5G","pill2"],
+// ["Google","Pixel 9","circ2"],["Google","Pixel 8a","circ2"]];
+// Original artwork drawn in code. Replace with real images later if you want.
+
+// Put 5 banner files in the designs/ folder. Size 1600x600; keep the subject near the centre.
+var BANNERS=[
+ {src:"designs/anime.webp",alt:"Describe banner 1",href:"#/models"},
+ {src:"designs/zodiac.webp",alt:"Describe banner 2",href:"#/models"},
+ {src:"designs/super_hero.webp",alt:"Describe banner 3",href:"#/models"},
+ {src:"designs/revolution.webp",alt:"Describe banner 4",href:"#/models"},
+ {src:"designs/cars_and_bikes.webp",alt:"Describe banner 5",href:"#/models"}];
+function carHTML(){
+ return '<div class="car" role="region" aria-roledescription="carousel" aria-label="Featured collections"><div class="vw"><div class="trk" id="trk">'+
+ BANNERS.map(function(b,i){return '<a class="sl" href="'+b.href+'" aria-label="Slide '+(i+1)+' of '+BANNERS.length+'"><img src="'+b.src+'" alt="'+b.alt+'"'+(i?' loading="lazy"':'')+'></a>'}).join("")+
+ '</div><button class="cp" id="cp" aria-label="Previous slide">‹</button><button class="cn" id="cn" aria-label="Next slide">›</button><span class="ct" id="ct">1/'+BANNERS.length+'</span></div><div class="dots" id="dots">'+
+ BANNERS.map(function(b,i){return '<button data-i="'+i+'" aria-label="Go to slide '+(i+1)+'"></button>'}).join("")+'</div></div>'}
+function initCar(){
+ var t=$("trk"),n=BANNERS.length,cur=0,hold=false,tm,box=t.parentNode.parentNode;
+ var go=function(i){cur=(i+n)%n;t.scrollTo({left:cur*t.clientWidth,behavior:"smooth"})};
+ var mark=function(){cur=Math.round(t.scrollLeft/t.clientWidth);$("ct").textContent=(cur+1)+"/"+n;[].forEach.call($("dots").children,function(d,i){d.className=i==cur?"on":""})};
+ t.addEventListener("scroll",mark);mark();
+ $("cp").onclick=function(){go(cur-1)};$("cn").onclick=function(){go(cur+1)};
+ $("dots").onclick=function(e){if(e.target.dataset.i)go(+e.target.dataset.i)};
+ ["mouseenter","focusin","touchstart"].forEach(function(e){box.addEventListener(e,function(){hold=true})});
+ ["mouseleave","focusout","touchend"].forEach(function(e){box.addEventListener(e,function(){hold=false})});
+ if(!matchMedia("(prefers-reduced-motion:reduce)").matches)tm=setInterval(function(){if(!$("trk")){clearInterval(tm);return}if(!hold)go(cur+1)},4000);
+}
+// ----------------------------------------------------------
+var CAM={diag2:{i:[28,18,64,64,18],l:[[46,36,12],[74,64,12]]},tri:{i:[28,18,74,78,18],l:[[48,38,12],[48,72,12],[80,55,12]]},vert3:{i:null,l:[[46,36,10],[46,64,10],[46,92,10]]},
+pill2:{i:[28,18,34,64,17],l:[[45,36,9],[45,64,9]]},circ2:{i:[28,18,70,36,18],l:[[46,36,10],[78,36,10]]},circ3:{i:[28,18,72,72,36],l:[[50,42,10],[78,42,10],[64,68,10]]}};
+var $=function(i){return document.getElementById(i)},R=function(n){return "₹"+n.toLocaleString("en-IN")},app=$("app"),uid=0,cur={m:0,d:0};
+var cart=[];try{cart=JSON.parse(localStorage.getItem("cc-cart")||"[]")}catch(e){}
+var brands=M.map(function(m){return m[0]}).filter(function(b,i,a){return a.indexOf(b)==i});
+function art(d){if(d.img)return '<image href="'+d.img+'" width="200" height="400" preserveAspectRatio="xMidYMid slice"/>';var a=d.c[0],b=d.c[1],c=d.c[2],i,s='<defs><linearGradient id="g'+d.id+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+a+'"/><stop offset="1" stop-color="'+b+'"/></linearGradient><pattern id="p'+d.id+'" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="13" height="26" fill="'+c+'" opacity=".5"/></pattern></defs><rect width="200" height="400" fill="url(#g'+d.id+')"/>';
+ switch(d.k){case"waves":for(i=0;i<4;i++)s+='<path d="M0 '+(210+i*45)+' Q50 '+(175+i*45)+' 100 '+(210+i*45)+' T200 '+(210+i*45)+' V400 H0Z" fill="'+c+'" opacity="'+(.2+i*.15)+'"/>';break;
+ case"sun":s+='<circle cx="100" cy="180" r="62" fill="'+c+'"/>';for(i=0;i<6;i++)s+='<rect y="'+(185+i*15)+'" width="200" height="'+(3+i*2)+'" fill="'+a+'"/>';break;
+ case"blobs":s+='<circle cx="60" cy="130" r="70" fill="'+b+'"/><circle cx="150" cy="260" r="80" fill="'+c+'" opacity=".6"/><circle cx="70" cy="340" r="50" fill="'+b+'" opacity=".7"/>';break;
+ case"peaks":s+='<circle cx="140" cy="120" r="26" fill="#fff" opacity=".8"/><polygon points="-20,400 70,210 160,400" fill="'+c+'" opacity=".6"/><polygon points="60,400 150,170 250,400" fill="'+c+'"/>';break;
+ case"dots":s+='<pattern id="q'+d.id+'" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="13" cy="13" r="6" fill="'+c+'"/></pattern><rect width="200" height="400" fill="url(#q'+d.id+')"/>';break;
+ case"stripes":s+='<rect width="200" height="400" fill="url(#p'+d.id+')"/>';break;
+ case"minimal":s+='<circle cx="100" cy="250" r="46" fill="'+c+'"/><rect x="62" y="332" width="76" height="3" fill="'+c+'"/>';break;
+ case"stars":for(i=0;i<26;i++)s+='<circle cx="'+(i*73%190+5)+'" cy="'+(i*131%380+10)+'" r="'+(i%3*.8+.8)+'" fill="'+c+'"/>';break;
+ case"arch":[120,96,72,48].forEach(function(r,j){s+='<circle cx="100" cy="340" r="'+r+'" fill="'+[c,b,a,"#fff"][j]+'"/>'});break;
+ case"blocks":for(i=0;i<32;i++)if((i+(i>>2))%2)s+='<rect x="'+(i%4*50)+'" y="'+((i>>2)*50)+'" width="50" height="50" fill="'+c+'" opacity=".3"/>'}
+ return s}
+function slug(m){return (m[0]+"-"+m[1]).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
+function svg(m,d,t){var u="models/"+slug(M[m])+".png",a=D[d].img;return '<div class="mk '+t+'" style="--c:url('+u+');--a:url('+a+')"><div class="ar"></div><img src="'+u+'" alt="'+D[d].n+' case for '+M[m][1]+'" onerror="this.parentNode.outerHTML=svgF('+m+','+d+',\''+t+'\')"></div>'}
+function mcards(m,t,a,b){var h="";for(var i=a;i<Math.min(b,D.length);i++)h+='<a class="card" href="#/p/'+m+'/'+i+'/'+t+'"><div class="art">'+svg(m,i,t)+'</div><h3>'+D[i].n+'</h3><div class="pr">'+R(T[t].p)+'</div></a>';return h}
+function svgF(m,d,t){var u="c"+(++uid),cm=CAM[M[m][2]],s='<svg viewBox="0 0 200 400" role="img" aria-label="'+D[d].n+' case for '+M[m][1]+'"><defs><clipPath id="'+u+'"><rect x="20" y="8" width="160" height="384" rx="30"/></clipPath><linearGradient id="h'+u+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".4" stop-color="#fff" stop-opacity="0"/><stop offset=".75" stop-color="#fff" stop-opacity=".18"/></linearGradient></defs><rect x="20" y="8" width="160" height="384" rx="30" fill="#0b0b0f"/><g clip-path="url(#'+u+')">'+art(D[d])+'</g>';
+ if(t=="soft")s+='<rect x="26" y="14" width="148" height="372" rx="25" fill="none" stroke="#0b0b0f" stroke-width="11" opacity=".9"/>';
+ if(t=="glass")s+='<rect x="20" y="8" width="160" height="384" rx="30" fill="url(#h'+u+')"/><rect x="21" y="9" width="158" height="382" rx="29" fill="none" stroke="#fff" stroke-opacity=".5"/>';
+ if(cm.i)s+='<rect x="'+cm.i[0]+'" y="'+cm.i[1]+'" width="'+cm.i[2]+'" height="'+cm.i[3]+'" rx="'+cm.i[4]+'" fill="#0b0b0f" opacity=".93"/>';
+ cm.l.forEach(function(l){s+='<circle cx="'+l[0]+'" cy="'+l[1]+'" r="'+(l[2]+(cm.i?0:4))+'" fill="#0b0b0f"/><circle cx="'+l[0]+'" cy="'+l[1]+'" r="'+(l[2]-3)+'" fill="#2b3342" stroke="#6b7385"/>'});
+ return s+'<rect x="16" y="110" width="4" height="40" rx="2" fill="#0b0b0f"/></svg>'}
+function card(m,d,t){return '<a class="card" href="#/p/'+m+'/'+d+'"><div class="art">'+svg(m,d,t)+'</div><h3>'+D[d].n+'</h3><div class="m">'+M[m][0]+' '+M[m][1]+'</div><div class="pr">from '+R(T.hard.p)+'</div></a>'}
+// Brand logo grid: put one PNG per brand in designs/brands/ named in lowercase, e.g. apple.png
+var BORDER=["Samsung","Vivo","Apple","Realme","OnePlus","Xiaomi","Nothing","iQOO","Oppo","Poco","Motorola","Google"];
+function brandBar(){return '<div class="bsec"><div class="bl" id="bl">'+BORDER.filter(function(b){return brands.indexOf(b)>-1}).map(function(b){return '<button class="bb" data-br="'+b+'" aria-expanded="false" aria-label="'+b+'"><img src="designs/brands/'+b.toLowerCase()+'.png" alt="'+b+'" onerror="this.outerHTML=\'<span class=tx>'+b+'</span>\'"></button>'}).join("")+'</div><div class="bpn" id="bpn"></div></div>'}
+function initBrands(){var bl=$("bl"),p=$("bpn");
+ bl.onclick=function(e){var b=e.target.closest(".bb");if(!b)return;var was=b.getAttribute("aria-expanded")=="true";
+  [].forEach.call(bl.children,function(x){x.setAttribute("aria-expanded","false")});
+  if(was){p.className="bpn";return}
+  b.setAttribute("aria-expanded","true");
+  var h='<h3>'+b.dataset.br+' models</h3><div class="bpg">';
+  M.forEach(function(m,i){if(m[0]==b.dataset.br)h+='<a href="#/m/'+i+'">'+svgF(i,0,"hard")+'<span>'+m[1]+'</span></a>'});
+  p.innerHTML=h+'</div>';p.className="bpn open"}}
+function home(){var i,s='<div class="hero"><div><span class="pill">Made for your exact model</span><h1>Find the perfect case for your phone</h1><p>Choose your phone, then pick a design. Every case is printed to order with cutouts fitted to your model.</p><a class="btn" href="#/models">Choose my phone model →</a></div><div>'+carHTML()+'</div></div><div class="wrap">';
+ s+='<div class="sec" style="margin-top:0"><div class="hd"><h2>Shop by vibe</h2></div><div class="tiles">';
+ [["Retro",1],["Pop",2],["Nature",3],["Minimal",6],["Night sky",7]].forEach(function(x){s+='<a class="tile" href="#/models">'+svg(0,x[1],"hard")+'<b>'+x[0]+'</b></a>'});
+ s+='</div></div><div class="sec"><div class="hd"><h2>Shop by brand</h2></div>'+brandBar()+'</div>';
+ s+='<div class="sec"><div class="hd"><div><h2>Featured designs</h2><p>Shown on iPhone 17. Pick your model on the next step.</p></div></div><div class="grid">';
+ for(i=0;i<6;i++)s+=card(0,i,"glass");
+ s+='</div></div><div class="sec"><div class="hd"><h2>Pick your case style</h2></div><div class="styles">'+Object.keys(T).map(function(k){return '<a class="st" href="#/models">'+svg(0,3,k)+'<b>'+T[k].n+'</b><span class="m">'+T[k].d+'</span><div class="pr">'+R(T[k].p)+'</div></a>'}).join("")+'</div></div>';
+ s+='<div class="sec"><div class="hd"><h2>Why CaseCraft</h2></div><div class="why"><div><b>Exact-fit cutouts</b>Made for the model you choose, not a one-size shell.</div><div><b>Printed to order</b>Your case is printed after you pay.</div><div><b>Secure payment</b>UPI, cards and net banking through Cashfree.</div><div><b>Free shipping over '+R(FREE)+'</b>Flat '+R(SHIP)+' below that.</div></div></div>';
+ s+='<div class="sec"><div class="hd"><h2>Questions</h2></div><details><summary>Do you offer Cash on Delivery?</summary><p>No. Orders are prepaid by UPI, card or net banking.</p></details><details><summary>Will it fit my phone?</summary><p>Each case is made for the exact model you select. Check Settings → About on your phone if unsure.</p></details><details><summary>How long does delivery take?</summary><p>Edit this text: for example, dispatch in 2 working days and delivery in 7.</p></details><details><summary>What is your return policy?</summary><p>Edit this text to match your policy.</p></details></div></div>';
+ app.innerHTML=s;initCar();initBrands()}
+function models(b){b=b||"All";app.innerHTML='<div class="wrap"><h1>Choose your phone model</h1><div class="tabs">'+["All"].concat(brands).map(function(x){return '<a class="tab'+(x==b?" on":"")+'" href="#/models/'+(x=="All"?"":encodeURIComponent(x))+'">'+x+'</a>'}).join("")+'</div><input id="s" type="search" placeholder="Search your model, e.g. Redmi Note 14" aria-label="Search your model"><div class="mgrid" id="ml"></div></div>';
+ var f=function(){var q=$("s").value.toLowerCase(),h="";M.forEach(function(m,i){if((b=="All"||m[0]==b)&&(m[0]+" "+m[1]).toLowerCase().indexOf(q)>-1)h+='<a class="mc" href="#/m/'+i+'">'+svgF(i,0,"hard")+'<span><b>'+m[1]+'</b><small>'+m[0]+'</small></span></a>'});$("ml").innerHTML=h||'<p class="m">No match. More models are coming soon.</p>'};$("s").oninput=f;f()}
+function mpage(m,t){t=t||"glass";var s='<div class="wrap"><a class="m" href="#/models">← All models</a><h1>Cases for '+M[m][0]+' '+M[m][1]+'</h1><div class="tabs">';
+ Object.keys(T).forEach(function(k){s+='<a class="tab'+(k==t?" on":"")+'" href="#/m/'+m+'/'+k+'">'+T[k].n+' · '+R(T[k].p)+'</a>'});
+ s+='</div><div class="grid">';s+=mcards(m,t,0,24);app.innerHTML=s+'</div><div id="sent" style="height:1px"></div><p id="more" class="m" style="text-align:center;padding:20px">'+(D.length>24?'Loading more designs...':'')+'</p></div>';
+var n=24,g=document.querySelector(".grid"),more=function(){if(n>=D.length)return;g.insertAdjacentHTML("beforeend",mcards(m,t,n,n+24));n+=24;if(n>=D.length)$("more").textContent="That is all "+D.length+" designs."};
+if("IntersectionObserver" in window){var io=new IntersectionObserver(function(x){if(x[0].isIntersecting){more();io.unobserve(x[0].target);if(n<D.length)io.observe(x[0].target)}},{rootMargin:"800px"});io.observe($("sent"))}else{while(n<D.length)more()}}
+function prod(m,d,t){cur={m:m,d:d,t:t};var s='<div class="pp"><div class="big">'+svg(m,d,t)+'</div><div><a class="m" href="#/m/'+m+'/'+t+'">← All designs for '+M[m][1]+'</a><h1 style="margin-top:6px">'+D[d].n+' '+M[m][1]+' case</h1><p class="m">Made for '+M[m][0]+' '+M[m][1]+' with the camera cutout fitted to this model.</p><div class="bp">'+R(T[t].p)+'</div><div class="types">';
+ Object.keys(T).forEach(function(k){s+='<button class="ty'+(k==t?" on":"")+'" data-t="'+k+'" aria-pressed="'+(k==t)+'"><b>'+T[k].n+'</b><b>'+R(T[k].p)+'</b><small>'+T[k].d+'</small></button>'});
+ app.innerHTML=s+'</div><label>Quantity<select id="q">'+[1,2,3,4,5].map(function(n){return "<option>"+n+"</option>"}).join("")+'</select></label><button class="btn" data-add="1">Add to cart</button><button class="btn ghost" data-add="2">Buy now</button></div></div>'}
+function tot(){var s=0;cart.forEach(function(l){s+=T[l.t].p*l.q});return s}
+function draw(){var n=0;$("it").innerHTML=cart.length?cart.map(function(l,i){n+=l.q;return '<div class="ci"><div><b>'+D[l.d].n+'</b><div class="m">'+M[l.m][0]+' '+M[l.m][1]+' · '+T[l.t].n+' · '+R(T[l.t].p)+'</div></div><div><button data-m="'+i+'" aria-label="Remove one">−</button> '+l.q+' <button data-p="'+i+'" aria-label="Add one">+</button></div></div>'}).join(""):'<p class="m">Your cart is empty.</p>';
+ $("sub").textContent=R(tot());$("cc").textContent=n;$("go").disabled=!cart.length;try{localStorage.setItem("cc-cart",JSON.stringify(cart))}catch(e){}}
+function checkout(){var s=tot(),sh=s>=FREE?0:SHIP;if(!cart.length){location.hash="#/";return}
+ app.innerHTML='<div class="wrap"><h1>Checkout</h1><div class="co" style="margin-top:20px"><form id="f" novalidate><label class="f">Full name<input id="name" autocomplete="name"></label><label>Mobile number<input id="phone" inputmode="numeric" maxlength="10" autocomplete="tel-national"></label><label>Email<input id="email" type="email" autocomplete="email"></label><label class="f">Address<textarea id="address" rows="2" autocomplete="street-address"></textarea></label><label>City<input id="city" autocomplete="address-level2"></label><label>State<input id="state" autocomplete="address-level1"></label><label>Pincode<input id="pincode" inputmode="numeric" maxlength="6" autocomplete="postal-code"></label><p id="err" class="f" role="alert"></p><button class="btn f" id="pay" style="margin:0">Pay '+R(s+sh)+'</button></form><div class="sum"><b>Order summary</b>'+cart.map(function(l){return '<div><span>'+D[l.d].n+' · '+M[l.m][1]+' · '+T[l.t].n+' ×'+l.q+'</span><span>'+R(T[l.t].p*l.q)+'</span></div>'}).join("")+'<div><span>Shipping</span><span>'+(sh?R(sh):"Free")+'</span></div><div><b>Total</b><b>'+R(s+sh)+'</b></div></div></div></div>';
+ var cf=Cashfree({mode:MODE});
+ $("f").onsubmit=function(e){e.preventDefault();$("err").textContent="";var b={items:cart.map(function(l){return{design:D[l.d].id,model:M[l.m][0]+" "+M[l.m][1],type:l.t,qty:l.q}})};["name","phone","email","address","city","state","pincode"].forEach(function(k){b[k]=$(k).value});
+  $("pay").disabled=true;$("pay").textContent="Starting payment...";
+  fetch("/api/create-order",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}).then(function(r){return r.json().then(function(d){if(!r.ok)throw new Error(d.error||"Failed");return d})}).then(function(d){return cf.checkout({paymentSessionId:d.paymentSessionId,redirectTarget:"_self"})}).catch(function(x){$("err").textContent=x.message;$("pay").disabled=false;$("pay").textContent="Pay "+R(s+sh)})}}
+function route(){var h=location.hash.slice(2).split("/"),m=+h[1],d=+h[2],t=T[h[3]]?h[3]:"glass";window.scrollTo(0,0);
+ if(h[0]=="models")models(decodeURIComponent(h[1]||""));else if(h[0]=="m"&&M[m])mpage(m,T[h[2]]?h[2]:"glass");else if(h[0]=="p"&&M[m]&&D[d])prod(m,d,t);else if(h[0]=="checkout")checkout();else home()}
+$("nav").innerHTML='<a href="#/">Home</a><a href="#/models">All models</a>';
+document.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
+ if(b.dataset.t)prod(cur.m,cur.d,b.dataset.t);
+ if(b.dataset.add){var q=+$("q").value,f=cart.filter(function(l){return l.m==cur.m&&l.d==cur.d&&l.t==cur.t})[0];if(f)f.q+=q;else cart.push({m:cur.m,d:cur.d,t:cur.t,q:q});draw();if(b.dataset.add=="2")location.hash="#/checkout";else{b.textContent="Added";setTimeout(function(){b.textContent="Add to cart"},900)}}
+ if(b.dataset.m){var i=+b.dataset.m;if(--cart[i].q<1)cart.splice(i,1);draw()}if(b.dataset.p){cart[+b.dataset.p].q++;draw()}});
+$("oc").onclick=function(){$("dr").classList.add("open");draw()};$("xc").onclick=function(){$("dr").classList.remove("open")};
+$("go").onclick=function(){$("dr").classList.remove("open");location.hash="#/checkout"};
+document.addEventListener("keydown",function(e){if(e.key=="Escape")$("dr").classList.remove("open")});
+window.addEventListener("hashchange",route);draw();route();
+</script>
+
+</body>
+</html>

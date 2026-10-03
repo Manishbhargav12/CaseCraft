@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order status</title>
+<style>
+body{margin:0;min-height:100vh;display:grid;place-items:center;font:16px/1.6 system-ui,sans-serif;background:#f6f7f9;color:#101828;padding:20px}
+.box{background:#fff;border:1px solid #dde1e8;border-radius:14px;padding:32px;max-width:440px;text-align:center}
+a{color:#2b44ff}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1 id="t">Checking your payment...</h1>
+  <p id="m"></p>
+  <p><a href="/">Back to the shop</a></p>
+</div>
+<script>
+var id = new URLSearchParams(location.search).get("order_id");
+var t = document.getElementById("t"), m = document.getElementById("m");
+if (!id) { t.textContent = "No order found"; }
+else fetch("/api/order-status?order_id=" + encodeURIComponent(id))
+  .then(function (r) { return r.json(); })
+  .then(function (d) {
+    if (d.status === "PAID") { try { localStorage.removeItem("cc-cart"); } catch (e) {} t.textContent = "Order confirmed"; m.textContent = "Thank you! Order " + id + " is paid. We will print your case and ship it to your address."; }
+    else if (d.status === "ACTIVE") { t.textContent = "Payment not completed"; m.textContent = "Your payment did not go through. You have not been charged for this order. Please try again."; }
+    else { t.textContent = "Status: " + (d.status || "unknown"); m.textContent = "Keep this order ID: " + id; }
+  })
+  .catch(function () { t.textContent = "Could not check status"; m.textContent = "Keep this order ID and contact us: " + id; });
+</script>
+</body>
+</html>
