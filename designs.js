@@ -1,8 +1,4 @@
 var D=[
-// {id:"anime",n:"Anime",img:"designs/thumb/anime.webp"},
-// {id:"cars-and-bikes",n:"Cars And Bikes",img:"designs/thumb/cars-and-bikes.webp"},
-// {id:"revolution",n:"Revolution",img:"designs/thumb/revolution.webp"},
-// {id:"super-hero",n:"Super Hero",img:"designs/thumb/super-hero.webp"},
 {id:"zodiac",n:"Zodiac",img:"designs/blaze-marble.jpg"},
 {id:"zodiac",n:"Zodiac",img:"designs/blaze-sunset.jpg"},
 {id:"zodiac",n:"Zodiac",img:"designs/cinder-geo.jpg"},
@@ -24,7 +20,7 @@ var D=[
 {id:"zodiac",n:"Zodiac",img:"designs/lagoon-sunset-4.jpg"},
 {id:"zodiac",n:"Zodiac",img:"designs/lagoon-marble-4.jpg"},
 {id:"zodiac",n:"Zodiac",img:"designs/lagoon-marble-2.jpg"},
-{id:"zodiac",n:"Zodiac",img:"designs/lagoon-marble.jpg"},
+// {id:"zodiac",n:"Zodiac",img:"designs/lagoon-marble.jpg"},
 {id:"zodiac",n:"Zodiac",img:"designs/forest-stars.jpg"},
 {id:"zodiac",n:"Zodiac",img:"designs/glacier-terrazzo-2.jpg"},
 {id:"zodiac",n:"Zodiac",img:"designs/glacier-terrazzo-3.jpg"},
