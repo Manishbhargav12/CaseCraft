@@ -179,11 +179,12 @@ function brandBar(){return '<div class="bsec"><div class="bl" id="bl">'+BORDER.f
 function initBrands(){var bl=$("bl"),p=$("bpn");
  bl.onclick=function(e){var b=e.target.closest(".bb");if(!b)return;var was=b.getAttribute("aria-expanded")=="true";
   [].forEach.call(bl.children,function(x){x.setAttribute("aria-expanded","false")});
-  if(was){p.className="bpn open";if(matchMedia("(max-width:760px)").matches)setTimeout(function(){p.scrollIntoView({behavior:"smooth",block:"start"})},50)}}return}
+  if(was){p.className="bpn";return}
   b.setAttribute("aria-expanded","true");
   var h='<h3>'+b.dataset.br+' models</h3><div class="bpg">';
-  M.forEach(function(m,i){if(m[0]==b.dataset.br)h+='<a href="#/m/'+i+'">'+svgF(i,0,"hard")+'<span>'+m[1]+'</span></a>'});
-  p.innerHTML=h+'</div>';p.className="bpn open"}}
+  M.forEach(function(m,i){if((typeof ready!=="function"||ready(m))&&m[0]==b.dataset.br)h+='<a href="#/m/'+i+'">'+svgF(i,0,"hard")+'<span>'+m[1]+'</span></a>'});
+  p.innerHTML=h+'</div>';p.className="bpn open";
+  if(matchMedia("(max-width:760px)").matches)setTimeout(function(){p.scrollIntoView({behavior:"smooth",block:"start"})},50)}}
 function home(){var i,s='<div class="hero"><div><span class="pill">Made for your exact model</span><h1>Find the perfect case for your phone</h1><p>Choose your phone, then pick a design. Every case is printed to order with cutouts fitted to your model.</p><a class="btn" href="#/models">Choose my phone model →</a></div><div>'+carHTML()+'</div></div><div class="wrap">';
  s+='<div class="sec" style="margin-top:0"><div class="hd"><h2>Shop by vibe</h2></div><div class="tiles">';
  [["Retro",1],["Pop",2],["Nature",3],["Minimal",6],["Night sky",7]].forEach(function(x){s+='<a class="tile" href="#/models">'+svg(0,x[1],"hard")+'<b>'+x[0]+'</b></a>'});
