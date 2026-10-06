@@ -73,6 +73,15 @@ footer{background:var(--soft);padding:30px 4vw;color:var(--mute);display:flex;ju
 .mk img{display:block;width:100%;height:auto;position:relative;mix-blend-mode:multiply}
 .mk .ar{position:absolute;inset:0;background:var(--a) center/cover no-repeat;-webkit-mask:var(--c) center/100% 100% no-repeat;mask:var(--c) center/100% 100% no-repeat}
 .mk.glass::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(255,255,255,0) 40%,rgba(255,255,255,.15));-webkit-mask:var(--c) center/100% 100% no-repeat;mask:var(--c) center/100% 100% no-repeat;pointer-events:none}
+/* more designs per screen */
+.wrap{max-width:1400px}
+.grid{grid-template-columns:repeat(6,1fr);gap:14px}
+.card .art{padding:12px;border-radius:12px}
+.card .art svg,.card .art .mk{width:68%;margin:0 auto}
+.card h3{font-size:13px;margin:8px 0 0}
+.card .pr,.card .m{font-size:13px}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr);gap:10px}.card .art svg,.card .art .mk{width:72%}}
 </style>
 </head>
 <body>
