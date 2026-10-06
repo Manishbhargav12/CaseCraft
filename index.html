@@ -82,11 +82,22 @@ footer{background:var(--soft);padding:30px 4vw;color:var(--mute);display:flex;ju
 .card .pr,.card .m{font-size:13px}
 @media(max-width:1100px){.grid{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr);gap:10px}.card .art svg,.card .art .mk{width:72%}}
+ .hb{display:none;background:none;border:1px solid var(--line);border-radius:8px;width:40px;height:40px;font-size:18px;color:var(--ink)}
+@media(max-width:760px){
+ header{flex-wrap:wrap;gap:10px;padding:10px 4vw}
+ .logo{flex:1;order:1}
+ .cb{order:2}
+ .hb{display:block;order:3}
+ nav{display:none;order:4;flex:0 0 100%;flex-direction:column;gap:0;overflow:visible;white-space:normal;border-top:1px solid var(--line)}
+ nav.open{display:flex;max-height:60vh;overflow:auto}
+ nav a{padding:12px 4px;border-bottom:1px solid var(--line);color:var(--ink)}
+}
 </style>
 </head>
 <body>
 <div class="bar">Free shipping over ₹499 · Printed to order · Secure prepaid checkout</div>
-<header><a class="logo" href="#/">CaseCraft</a><nav id="nav"></nav><button class="cb" id="oc">Cart (<span id="cc">0</span>)</button></header>
+<header><a class="logo" href="#/">CaseCraft</a><nav id="nav"></nav><button class="cb" id="oc">Cart (<span id="cc">0</span>)</button>
+ <button class="cb" id="oc">Cart (<span id="cc">0</span>)</button><button class="hb" id="hb" aria-label="Menu" aria-expanded="false">☰</button></header>
 <main id="app"></main>
 <footer><span>© 2026 CaseCraft</span><span>Prepaid orders only · Payments by Cashfree</span></footer>
 <aside id="dr" aria-label="Cart"><button id="xc" style="align-self:flex-end;border:0;background:none;font-size:26px" aria-label="Close cart">×</button><h2>Your cart</h2><div id="it"></div><p><b>Subtotal: <span id="sub">₹0</span></b></p><button class="btn" id="go" style="width:100%;margin:0">Checkout</button></aside>
@@ -211,6 +222,8 @@ document.addEventListener("click",function(e){var b=e.target.closest("button");i
 $("oc").onclick=function(){$("dr").classList.add("open");draw()};$("xc").onclick=function(){$("dr").classList.remove("open")};
 $("go").onclick=function(){$("dr").classList.remove("open");location.hash="#/checkout"};
 document.addEventListener("keydown",function(e){if(e.key=="Escape")$("dr").classList.remove("open")});
+ $("hb").onclick=function(){var o=$("nav").classList.toggle("open");this.setAttribute("aria-expanded",o);this.textContent=o?"✕":"☰"};
+$("nav").addEventListener("click",function(e){if(e.target.closest("a")){$("nav").classList.remove("open");$("hb").textContent="☰";$("hb").setAttribute("aria-expanded","false")}});
 window.addEventListener("hashchange",route);draw();route();
 </script>
 
