@@ -92,6 +92,7 @@ footer{background:var(--soft);padding:30px 4vw;color:var(--mute);display:flex;ju
  nav.open{display:flex;max-height:60vh;overflow:auto}
  nav a{padding:12px 4px;border-bottom:1px solid var(--line);color:var(--ink)}
 }
+ .bpn{scroll-margin-top:70px}
 </style>
 </head>
 <body>
@@ -178,7 +179,7 @@ function brandBar(){return '<div class="bsec"><div class="bl" id="bl">'+BORDER.f
 function initBrands(){var bl=$("bl"),p=$("bpn");
  bl.onclick=function(e){var b=e.target.closest(".bb");if(!b)return;var was=b.getAttribute("aria-expanded")=="true";
   [].forEach.call(bl.children,function(x){x.setAttribute("aria-expanded","false")});
-  if(was){p.className="bpn";return}
+  if(was){p.className="bpn open";if(matchMedia("(max-width:760px)").matches)setTimeout(function(){p.scrollIntoView({behavior:"smooth",block:"start"})},50)}}return}
   b.setAttribute("aria-expanded","true");
   var h='<h3>'+b.dataset.br+' models</h3><div class="bpg">';
   M.forEach(function(m,i){if(m[0]==b.dataset.br)h+='<a href="#/m/'+i+'">'+svgF(i,0,"hard")+'<span>'+m[1]+'</span></a>'});
