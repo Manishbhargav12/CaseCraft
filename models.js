@@ -4,25 +4,25 @@
 // circ2 = wide horizontal pill with 2 lenses, circ3 = round island with 3 lenses.
 // Layouts are a best-fit guess. Check each phone and change the last word if needed.
 // To add a phone: add one line. Keep brand spelling the same as the logo list (Apple, Samsung, Vivo, ...).
+// Phones whose camera layout I am NOT sure about. Check them in layout_checker.html (search the model name, click 'see real phone').
+// G = guess (low confidence), L = likely right (medium confidence).
+
+// ======== GUESSES ========
 var RAW = `
-Phones whose camera layout I am NOT sure about. Check them in layout_checker.html (search the model name, click 'see real phone').
-G = guess (low confidence), L = likely right (medium confidence).
 
-======== GUESSES ========
 
--- Apple (5) --
+
 Apple|iPhone Air|bar
 Apple|iPhone 18 Pro|bar
 Apple|iPhone 17|pill2
 Apple|iPhone 17 Pro|bar
 Apple|iPhone 17 Pro Max|bar
 
--- Google (3) --
+
 Google|Pixel 10|bar
 Google|Pixel 10a|circ2
 Google|Pixel 10 Pro|bar
 
--- Motorola (53) --
 Motorola|Moto Edge 70 Fusion|pill2
 Motorola|Moto Edge 60|pill2
 Motorola|Moto Edge 60 Fusion|pill2
@@ -77,7 +77,7 @@ Motorola|Moto E6s|pill2
 Motorola|Moto One Fusion Plus|pill3
 Motorola|Moto One Power|pill2
 
--- Nothing (11) --
+
 Nothing|Phone (2)|diag2
 Nothing|Phone 4a|sq3
 Nothing|Phone 4a Pro|sq3
@@ -90,7 +90,7 @@ Nothing|Phone 1|diag2
 Nothing|CMF Phone 2 Pro|pill3
 Nothing|CMF Phone 1|pill2
 
--- OnePlus (24) --
+
 OnePlus|Nord CE 6|vert3
 OnePlus|Nord CE6 Lite|vert3
 OnePlus|Nord CE5|vert3
@@ -116,7 +116,7 @@ OnePlus|Nord 4|vert3
 OnePlus|Nord 2 5G|vert3
 OnePlus|Nord 2T 5G|vert3
 
--- Oppo (93) --
+
 Oppo|A79 5G|pill2
 Oppo|A78 5G|pill2
 Oppo|A78 4G|pill2
@@ -211,7 +211,7 @@ Oppo|K10 5G|pill2
 Oppo|K10 4G|pill2
 Oppo|K1|pill2
 
--- Poco (35) --
+
 Poco|X6 Pro|pill3
 Poco|F7 5G|pill3
 Poco|X6 Neo|pill3
@@ -248,7 +248,7 @@ Poco|F3 GT 5G|pill3
 Poco|M8 5G|pill2
 Poco|M7 Plus 5G|pill2
 
--- Realme (106) --
+
 Realme|16 Pro 5G|ctr
 Realme|15|circ2
 Realme|15T 5G|circ2
@@ -356,7 +356,7 @@ Realme|X|sq4
 Realme|XT/X2|sq4
 Realme|U1|pill2
 
--- Samsung (87) --
+
 Samsung|Galaxy A80|vert3
 Samsung|Galaxy A72|pill3
 Samsung|Galaxy A71|sq4
@@ -445,7 +445,7 @@ Samsung|Galaxy Z Flip3|vert2
 Samsung|Galaxy Z Flip4|vert2
 Samsung|Galaxy Z Flip5|vert2
 
--- Vivo (128) --
+
 Vivo|V70 5G|circ3
 Vivo|V70 Elite 5G|circ3
 Vivo|V70 FE 5G|circ3
@@ -575,7 +575,7 @@ Vivo|S1/Z1x|vert3
 Vivo|S1 Pro|vert3
 Vivo|Z1 Pro|vert3
 
--- Xiaomi (52) --
+
 Xiaomi|Redmi Note 15 5G|pill2
 Xiaomi|Redmi Note 15 Pro+ 5G|pill3
 Xiaomi|Redmi Note 14 5G|pill2
@@ -629,7 +629,7 @@ Xiaomi|Mi Max|pill3
 Xiaomi|15 Ultra|circ3
 Xiaomi|14 Civi|circ3
 
--- iQOO (30) --
+
 iQOO|Z11x 5G|circ2
 iQOO|Z10 5G|circ2
 iQOO|Z10R 5G|circ2
@@ -661,9 +661,7 @@ iQOO|7 5G|sq3
 iQOO|7 Legend 5G|sq3
 iQOO|15R 5G|pill2
 
-======== LIKELY RIGHT ========
 
--- Google (10) --
 Google|Pixel 9|bar
 Google|Pixel 9A|circ2
 Google|Pixel 9 Pro|bar
@@ -675,7 +673,7 @@ Google|Pixel 4|sq3
 Google|Pixel 4 XL|sq3
 Google|Pixel 4A|single
 
--- Motorola (11) --
+
 Motorola|Moto G6 Play|single
 Motorola|Moto G5|single
 Motorola|Moto G5 plus|single
@@ -688,12 +686,11 @@ Motorola|Moto E5 Play|single
 Motorola|Moto M|single
 Motorola|Moto Z2 Play|single
 
--- Nothing (3) --
 Nothing|Phone (2a)|circ2
 Nothing|Phone 2A|circ2
 Nothing|Phone 2A Plus|circ2
 
--- OnePlus (20) --
+
 OnePlus|15|circ3
 OnePlus|15R|circ3
 OnePlus|13|circ3
@@ -715,13 +712,13 @@ OnePlus|6T|vert2
 OnePlus|3/3T|single
 OnePlus|Nord 3 5G|vert3
 
--- Oppo (4) --
+
 Oppo|Reno10 Pro+ 5G|circ3
 Oppo|Find X8 5G|circ3
 Oppo|Find X8 Pro 5G|circ3
 Oppo|Find X8 Pro+ 5G|circ3
 
--- Realme (7) --
+
 Realme|12 Pro 5G/12 Pro+ 5G|ctr
 Realme|11 Pro/Pro+ 5G|ctr
 Realme|1|single
@@ -730,7 +727,7 @@ Realme|C20|single
 Realme|C11 2020|single
 Realme|C1|single
 
--- Samsung (45) --
+
 Samsung|Galaxy A73 5G|vert3
 Samsung|Galaxy A55 5G|vert3
 Samsung|Galaxy A54 5G|vert3
@@ -777,12 +774,12 @@ Samsung|J4|single
 Samsung|J4 Plus|single
 Samsung|J2 2017|single
 
--- Vivo (3) --
+
 Vivo|V7|single
 Vivo|V7 plus|single
 Vivo|V5/V5s|single
 
--- Xiaomi (37) --
+
 Xiaomi|Redmi Note 10 Pro|sq4
 Xiaomi|Redmi Note 10 Pro Max|sq4
 Xiaomi|Redmi Note 9 Pro/Pro Max|sq4
