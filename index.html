@@ -147,7 +147,19 @@ function initCar(){
 }
 // ----------------------------------------------------------
 var CAM={diag2:{i:[28,18,64,64,18],l:[[46,36,12],[74,64,12]]},tri:{i:[28,18,74,78,18],l:[[48,38,12],[48,72,12],[80,55,12]]},vert3:{i:null,l:[[46,36,10],[46,64,10],[46,92,10]]},
-pill2:{i:[28,18,34,64,17],l:[[45,36,9],[45,64,9]]},circ2:{i:[28,18,70,36,18],l:[[46,36,10],[78,36,10]]},circ3:{i:[28,18,72,72,36],l:[[50,42,10],[78,42,10],[64,68,10]]}};
+pill2:{i:[28,18,34,64,17],l:[[45,36,9],[45,64,9]]},circ2:{i:[28,18,70,36,18],l:[[46,36,10],[78,36,10]]},circ3:{i:[28,18,72,72,36],l:[[50,42,10],[78,42,10],[64,68,10]]},
+single:{i:null,l:[[46,36,10]]}};
+// Pick the camera layout from the phone NAME (Apple), else the layout typed in models.js, else a safe default.
+function camFor(m){var n=m[1];
+ if(m[0]=="Apple"){var v=parseInt((n.match(/iPhone (\d+)/)||[])[1],10);
+  if(/Air|16e|XR/.test(n)||(v<=8&&!/Plus/.test(n)))return CAM.single;
+  if(/Plus/.test(n)&&v<=8)return CAM.circ2;
+  if(/iPhone X/.test(n))return CAM.pill2;
+  if(/Pro/.test(n)&&v>=11)return CAM.tri;
+  if(v==16)return CAM.pill2;
+  if(v==17)return CAM.circ2;
+  return CAM.diag2}
+ return CAM[m[2]]||CAM.circ2}
 var $=function(i){return document.getElementById(i)},R=function(n){return "₹"+n.toLocaleString("en-IN")},app=$("app"),uid=0,cur={m:0,d:0};
 var cart=[];try{cart=JSON.parse(localStorage.getItem("cc-cart")||"[]")}catch(e){}
 var brands=M.map(function(m){return m[0]}).filter(function(b,i,a){return a.indexOf(b)==i});
@@ -166,7 +178,7 @@ function art(d){if(d.img)return '<image href="'+d.img+'" width="200" height="400
 function slug(m){return (m[0]+"-"+m[1]).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
 function svg(m,d,t){var u="models/"+slug(M[m])+".png",a=D[d].img;return '<div class="mk '+t+'" style="--c:url('+u+');--a:url('+a+')"><div class="ar"></div><img src="'+u+'" alt="'+D[d].n+' case for '+M[m][1]+'" onerror="this.parentNode.outerHTML=svgF('+m+','+d+',\''+t+'\')"></div>'}
 function mcards(m,t,a,b){var h="";for(var i=a;i<Math.min(b,D.length);i++)h+='<a class="card" href="#/p/'+m+'/'+i+'/'+t+'"><div class="art">'+svg(m,i,t)+'</div><h3>'+D[i].n+'</h3><div class="pr">'+R(T[t].p)+'</div></a>';return h}
-function svgF(m,d,t){var u="c"+(++uid),cm=CAM[M[m][2]],s='<svg viewBox="0 0 200 400" role="img" aria-label="'+D[d].n+' case for '+M[m][1]+'"><defs><clipPath id="'+u+'"><rect x="20" y="8" width="160" height="384" rx="30"/></clipPath><linearGradient id="h'+u+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".4" stop-color="#fff" stop-opacity="0"/><stop offset=".75" stop-color="#fff" stop-opacity=".18"/></linearGradient></defs><rect x="20" y="8" width="160" height="384" rx="30" fill="#0b0b0f"/><g clip-path="url(#'+u+')">'+art(D[d])+'</g>';
+function svgF(m,d,t){var u="c"+(++uid),cm=camFor(M[m]),s='<svg viewBox="0 0 200 400" role="img" aria-label="'+D[d].n+' case for '+M[m][1]+'"><defs><clipPath id="'+u+'"><rect x="20" y="8" width="160" height="384" rx="30"/></clipPath><linearGradient id="h'+u+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".4" stop-color="#fff" stop-opacity="0"/><stop offset=".75" stop-color="#fff" stop-opacity=".18"/></linearGradient></defs><rect x="20" y="8" width="160" height="384" rx="30" fill="#0b0b0f"/><g clip-path="url(#'+u+')">'+art(D[d])+'</g>';
  if(t=="soft")s+='<rect x="26" y="14" width="148" height="372" rx="25" fill="none" stroke="#0b0b0f" stroke-width="11" opacity=".9"/>';
  if(t=="glass")s+='<rect x="20" y="8" width="160" height="384" rx="30" fill="url(#h'+u+')"/><rect x="21" y="9" width="158" height="382" rx="29" fill="none" stroke="#fff" stroke-opacity=".5"/>';
  if(cm.i)s+='<rect x="'+cm.i[0]+'" y="'+cm.i[1]+'" width="'+cm.i[2]+'" height="'+cm.i[3]+'" rx="'+cm.i[4]+'" fill="#0b0b0f" opacity=".93"/>';
