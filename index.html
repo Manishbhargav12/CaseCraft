@@ -93,6 +93,7 @@ footer{background:var(--soft);padding:30px 4vw;color:var(--mute);display:flex;ju
  nav a{padding:12px 4px;border-bottom:1px solid var(--line);color:var(--ink)}
 }
  .bpn{scroll-margin-top:70px}
+#oc{display:none}
 </style>
 </head>
 <body>
@@ -146,9 +147,12 @@ function initCar(){
  if(!matchMedia("(prefers-reduced-motion:reduce)").matches)tm=setInterval(function(){if(!$("trk")){clearInterval(tm);return}if(!hold)go(cur+1)},4000);
 }
 // ----------------------------------------------------------
-var CAM={diag2:{i:[28,18,64,64,18],l:[[46,36,12],[74,64,12]]},tri:{i:[28,18,74,78,18],l:[[48,38,12],[48,72,12],[80,55,12]]},vert3:{i:null,l:[[46,36,10],[46,64,10],[46,92,10]]},
-pill2:{i:[28,18,34,64,17],l:[[45,36,9],[45,64,9]]},circ2:{i:[28,18,70,36,18],l:[[46,36,10],[78,36,10]]},circ3:{i:[28,18,72,72,36],l:[[50,42,10],[78,42,10],[64,68,10]]},
-single:{i:null,l:[[46,36,10]]}};
+var CAM={diag2:{i:[28,18,64,64,18],l:[[46,36,12],[74,64,12]]},tri:{i:[28,18,74,78,18],l:[[48,38,12],[48,72,12],[80,55,12]]},
+vert2:{i:null,l:[[46,36,10],[46,66,10]]},vert3:{i:null,l:[[46,36,10],[46,64,10],[46,92,10]]},single:{i:null,l:[[48,40,13]]},
+pill2:{i:[28,18,34,64,17],l:[[45,36,9],[45,64,9]]},pill3:{i:[28,18,38,92,19],l:[[47,38,9],[47,64,9],[47,90,9]]},
+circ2:{i:[28,18,70,36,18],l:[[46,36,10],[78,36,10]]},circ3:{i:[28,18,72,72,36],l:[[50,42,10],[78,42,10],[64,68,10]]},
+sq4:{i:[28,18,70,70,16],l:[[46,36,11],[80,36,11],[46,68,11],[80,68,11]]},sq3:{i:[28,18,70,70,16],l:[[46,36,11],[80,36,11],[46,68,11],[80,68,4]]},
+bar:{i:[20,70,160,48,6],l:[[64,94,14],[108,94,14]]},ctr:{i:[70,22,60,60,30],l:[[88,40,9],[112,40,9],[100,64,9]]}};
 // Pick the camera layout from the phone NAME (Apple), else the layout typed in models.js, else a safe default.
 function camFor(m){var n=m[1];
  if(m[0]=="Apple"){var v=parseInt((n.match(/iPhone (\d+)/)||[])[1],10);
@@ -160,6 +164,7 @@ function camFor(m){var n=m[1];
   if(v==17)return CAM.circ2;
   return CAM.diag2}
  return CAM[m[2]]||CAM.circ2}
+var FORMS={"hard": "https://payments.cashfree.com/forms/hard_cover", "soft": "", "glass": ""},FORM_ALL="";
 var $=function(i){return document.getElementById(i)},R=function(n){return "₹"+n.toLocaleString("en-IN")},app=$("app"),uid=0,cur={m:0,d:0};
 var cart=[];try{cart=JSON.parse(localStorage.getItem("cc-cart")||"[]")}catch(e){}
 var brands=M.map(function(m){return m[0]}).filter(function(b,i,a){return a.indexOf(b)==i});
@@ -216,7 +221,11 @@ var n=24,g=document.querySelector(".grid"),more=function(){if(n>=D.length)return
 if("IntersectionObserver" in window){var io=new IntersectionObserver(function(x){if(x[0].isIntersecting){more();io.unobserve(x[0].target);if(n<D.length)io.observe(x[0].target)}},{rootMargin:"800px"});io.observe($("sent"))}else{while(n<D.length)more()}}
 function prod(m,d,t){cur={m:m,d:d,t:t};var s='<div class="pp"><div class="big">'+svg(m,d,t)+'</div><div><a class="m" href="#/m/'+m+'/'+t+'">← All designs for '+M[m][1]+'</a><h1 style="margin-top:6px">'+D[d].n+' '+M[m][1]+' case</h1><p class="m">Made for '+M[m][0]+' '+M[m][1]+' with the camera cutout fitted to this model.</p><div class="bp">'+R(T[t].p)+'</div><div class="types">';
  Object.keys(T).forEach(function(k){s+='<button class="ty'+(k==t?" on":"")+'" data-t="'+k+'" aria-pressed="'+(k==t)+'"><b>'+T[k].n+'</b><b>'+R(T[k].p)+'</b><small>'+T[k].d+'</small></button>'});
- app.innerHTML=s+'</div><label>Quantity<select id="q">'+[1,2,3,4,5].map(function(n){return "<option>"+n+"</option>"}).join("")+'</select></label><button class="btn" data-add="1">Add to cart</button><button class="btn ghost" data-add="2">Buy now</button></div></div>'}
+ app.innerHTML=s+'</div><div id="pay"><button class="btn" id="buy">Buy now</button><p class="m">You pay on the secure Cashfree page, where you also enter your name, phone, email and delivery address.</p></div></div></div>';$("buy").onclick=buyNow}
+function buyNow(){var c=cur,u=FORMS[c.t]||FORM_ALL,code=D[c.d].id.toUpperCase()+" | "+M[c.m][0]+" "+M[c.m][1]+" | "+T[c.t].n+" | Rs "+T[c.t].p;
+ if(!u){$("pay").innerHTML='<p class="m">Sorry, '+T[c.t].n+' cannot be ordered online yet. Please choose another case type.</p>';return}
+ $("pay").innerHTML='<label>Step 1: your order details (copied for you)<input id="oc2" readonly value="'+code+'"></label><p class="m">Step 2: on the payment page, paste this into "Order details".'+(FORMS[c.t]?'':' Choose the amount <b>'+R(T[c.t].p)+'</b>.')+'</p><a class="btn" id="go2" target="_blank" rel="noopener" href="'+u+'">Continue to payment</a>';
+ $("oc2").onfocus=function(){this.select()};try{navigator.clipboard.writeText(code)}catch(e){}}
 function tot(){var s=0;cart.forEach(function(l){s+=T[l.t].p*l.q});return s}
 function draw(){var n=0;$("it").innerHTML=cart.length?cart.map(function(l,i){n+=l.q;return '<div class="ci"><div><b>'+D[l.d].n+'</b><div class="m">'+M[l.m][0]+' '+M[l.m][1]+' · '+T[l.t].n+' · '+R(T[l.t].p)+'</div></div><div><button data-m="'+i+'" aria-label="Remove one">−</button> '+l.q+' <button data-p="'+i+'" aria-label="Add one">+</button></div></div>'}).join(""):'<p class="m">Your cart is empty.</p>';
  $("sub").textContent=R(tot());$("cc").textContent=n;$("go").disabled=!cart.length;try{localStorage.setItem("cc-cart",JSON.stringify(cart))}catch(e){}}
