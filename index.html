@@ -164,7 +164,7 @@ function camFor(m){var n=m[1];
   if(v==17)return CAM.circ2;
   return CAM.diag2}
  return CAM[m[2]]||CAM.circ2}
-var FORMS={"hard": "https://payments.cashfree.com/forms/hard_cover", "soft": "", "glass": ""},FORM_ALL="";
+var FORMS={"hard": "https://payments.cashfree.com/forms/hard_cover", "soft": "https://payments.cashfree.com/forms/cover_soft", "glass": "https://payments.cashfree.com/forms/glass_cover"},FORM_ALL="";
 var $=function(i){return document.getElementById(i)},R=function(n){return "₹"+n.toLocaleString("en-IN")},app=$("app"),uid=0,cur={m:0,d:0};
 var cart=[];try{cart=JSON.parse(localStorage.getItem("cc-cart")||"[]")}catch(e){}
 var brands=M.map(function(m){return m[0]}).filter(function(b,i,a){return a.indexOf(b)==i});
